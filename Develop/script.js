@@ -7,10 +7,21 @@
     var timeBlk = $(this).parent().attr("id")
     localStorage.setItem(timeBlk,userEntry)
   })
-  
+
+  $("#currentDay").text(dayjs().format("dddd, MMMM D, YYYY h:mm A	"))
+
+  var currentHour = dayjs().hour()
+  console.log(currentHour)
  for(let i=9;i<=17;i++){
     var storedValue = localStorage.getItem("hour-"+i);
     $("#hour-"+i).children(".description").val(storedValue)
+    if(i < currentHour){
+      $("#hour-"+i).children(".description").addClass("past") 
+    }else if( i === currentHour){
+      $("#hour-"+i).children(".description").addClass("present")
+    }else{
+      $("#hour-"+i).children(".description").addClass("future")
+    }
  }
 
   // TODO: Add a listener for click events on the save button. This code should
